@@ -49,6 +49,7 @@
       success: function(data) {
         $('#card').html(data.term);
         $('#meaning').html(data.meaning);
+        $('#card').css('background-color', '#eeeeee');
       }
     });
   }
@@ -71,7 +72,6 @@
   function displayPrevWord() {
     if (curr_order_pos > 0) {
       curr_order_pos--;
-      $('#card').css('background-color', '#eeeeee');
       flipped = false;
       displayWord(order[curr_order_pos]);
     }
@@ -80,7 +80,6 @@
   function displayNextWord() {
     if (curr_order_pos < num_words-1) {
       curr_order_pos++;
-      $('#card').css('background-color', '#eeeeee');
       flipped = false;
       displayWord(order[curr_order_pos]);
     }
