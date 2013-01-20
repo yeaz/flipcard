@@ -49,7 +49,7 @@
       success: function(data) {
         $('#card').html(data.term);
         $('#meaning').html(data.meaning);
-        $('#card').css('background-color', '#eeeeee');
+        $('#card').css('background-color', '#CCFF99');
       }
     });
   }
@@ -61,7 +61,7 @@
       $('#card').flip({
         direction: 'lr',
         content: $('#meaning').html(),
-        color: '#CCFF99',
+        color: '#eeeeee',
         speed: 'fast'
       });
     }
