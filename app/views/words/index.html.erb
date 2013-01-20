@@ -1,0 +1,112 @@
+<div id='card'>
+</div>
+<div id='meaning'>
+  
+</div>
+<script type='text/javascript'>
+  
+  var order = new Array();
+  var num_words = 0;
+  var curr_order_pos = 0;
+  var flipped = false;
+  
+  function setup() {
+    $.ajax({
+      url: '/get_num_words',
+      type: 'get',
+      dataType: 'json',
+      success: function(data) {
+        num_words = data;
+        getShuffledOrder();
+      }
+    });
+  }
+  
+  function getShuffledOrder() {
+    
+    var temp = new Array();
+    var i, tempLength = num_words;
+    
+    for (i = 0; i < num_words; i++) {
+      temp[i] = i;
+    }
+    
+    while (tempLength > 0) {
+      var rand = Math.floor(Math.random()*tempLength);
+      order[num_words - tempLength] = temp[rand] + 1;
+      temp.splice(rand, 1);
+      tempLength--;
+    }
+    
+    displayWord(order[curr_order_pos]);
+  }
+  
+  function displayWord(word_id) {
+    $.ajax({
+      url: '/get_word?id=' + word_id,
+      type: 'get',
+      dataType: 'json',
+      success: function(data) {
+        $('#card').html(data.term);
+        $('#meaning').html(data.meaning);
+      }
+    });
+  }
+  
+  function flipCard() {
+    if (flipped) {
+      $('#card').revertFlip();
+      $('#card').css('font-size', '25px');
+    } else {
+      $('#card').flip({
+        direction: 'lr',
+        content: $('#meaning').html(),
+        color: '#CCFF99',
+        speed: 'fast'
+      });
+      $('#card').css('font-size', '13px');
+    }
+    flipped = !flipped;
+    return false;
+  }
+   
+  function displayPrevWord() {
+    if (curr_order_pos > 0) {
+      curr_order_pos--;
+      $('#card').css('font-size', '25px');
+      $('#card').css('background-color', '#eeeeee');
+      flipped = false;
+      displayWord(order[curr_order_pos]);
+    }
+  }
+  
+  function displayNextWord() {
+    if (curr_order_pos < num_words-1) {
+      curr_order_pos++;
+      $('#card').css('font-size', '25px');
+      $('#card').css('background-color', '#eeeeee');
+      flipped = false;
+      displayWord(order[curr_order_pos]);
+    }
+  }
+    
+  $(document).ready( function() {
+    setup();
+    
+    $('#card').click( function() {
+      flipCard();
+    });
+    
+    $('body').keypress( function(e) {
+      if (e.which == 32) {
+        flipCard();
+      } else if (e.keyCode == 37) {
+        displayPrevWord();
+      } else if (e.keyCode == 39) {
+        displayNextWord();
+      }
+    });
+    
+  });
+  
+</script>
