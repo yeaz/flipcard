@@ -72,6 +72,9 @@
   function displayPrevWord() {
     if (curr_order_pos > 0) {
       curr_order_pos--;
+    } else {
+      curr_order_pos = num_words-1;
+    }
       flipped = false;
       displayWord(order[curr_order_pos]);
     }
@@ -80,9 +83,11 @@
   function displayNextWord() {
     if (curr_order_pos < num_words-1) {
       curr_order_pos++;
-      flipped = false;
-      displayWord(order[curr_order_pos]);
+    } else {
+      curr_order_pos = 0;
     }
+    flipped = false;
+    displayWord(order[curr_order_pos]);
   }
     
   $(document).ready( function() {
