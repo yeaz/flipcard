@@ -1,4 +1,4 @@
-Flashcard::Application.routes.draw do
+Flipcard::Application.routes.draw do
 
   root :to => 'words#index'
   
