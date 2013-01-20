@@ -56,7 +56,6 @@
   function flipCard() {
     if (flipped) {
       $('#card').revertFlip();
-      $('#card').css('font-size', '25px');
     } else {
       $('#card').flip({
         direction: 'lr',
@@ -64,7 +63,6 @@
         color: '#CCFF99',
         speed: 'fast'
       });
-      $('#card').css('font-size', '13px');
     }
     flipped = !flipped;
     return false;
@@ -73,7 +71,6 @@
   function displayPrevWord() {
     if (curr_order_pos > 0) {
       curr_order_pos--;
-      $('#card').css('font-size', '25px');
       $('#card').css('background-color', '#eeeeee');
       flipped = false;
       displayWord(order[curr_order_pos]);
@@ -83,7 +80,6 @@
   function displayNextWord() {
     if (curr_order_pos < num_words-1) {
       curr_order_pos++;
-      $('#card').css('font-size', '25px');
       $('#card').css('background-color', '#eeeeee');
       flipped = false;
       displayWord(order[curr_order_pos]);
@@ -97,7 +93,7 @@
       flipCard();
     });
     
-    $('body').keypress( function(e) {
+    $('body').keydown( function(e) {
       if (e.which == 32) {
         flipCard();
       } else if (e.keyCode == 37) {
