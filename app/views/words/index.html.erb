@@ -1,8 +1,22 @@
-<div id='card'>
+<div id='message_box'>
+  <div id='directions_cont'>
+    <div id='directions'><img src='/assets/directions.png'/></div>
+    <div id='directions_close_button'><img src='/assets/close_button.png'/></div>
+  </div>
+  <div id='message'>
+    This site is totally for private usage (you know, like studying), no copyright infringement intended<br>
+    - please don't sue me -
+  </div>
+  <div id='reference'>
+    Words from <a href='http://www.amazon.com/Word-Smart-GRE-2nd-Guides/dp/0375765778' target='_blank' id='reference_title'>The Princeton Review, Word Smart for the GRE 2nd Edition</a>
+  </div>
 </div>
-<div id='meaning'>
-  
+<div id='card_cont'>
+<div id='prev_button_cont' class='button_cont'><a href='#' id='prev_button' class='button'><img src='/assets/prev_button.png' /></a></div>
+<div id='card'></div>
+<div id='next_button_cont' class='button_cont'><a href='#' id='next_button' class='button'><img src='/assets/next_button.png' /></a></div> 
 </div>
+<div id='meaning'></div>
 <script type='text/javascript'>
   
   var order = new Array();
@@ -92,8 +106,22 @@
   $(document).ready( function() {
     setup();
     
+    $('#directions_close_button').click( function() { 
+      $('#message_box').fadeOut();
+    }); 
+    
     $('#card').click( function() {
       flipCard();
+    });
+    
+    $('#prev_button').click( function(event) {
+      event.preventDefault();
+      displayPrevWord();
+    });
+    
+    $('#next_button').click( function(event) {
+      event.preventDefault();
+      displayNextWord();
     });
     
     $('body').keydown( function(e) {
